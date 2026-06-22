@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { client, db } from './db/connector.js';
+import { client } from './db/connector.js';
 
 // Helper to pick random elements
 function getRandomElements(arr, count) {
@@ -10,19 +10,18 @@ function getRandomElements(arr, count) {
 }
 
 async function runSeed() {
-  if (!db) {
-    console.error('Database connection is not active. Aborting seeding.');
-    process.exit(1);
-  }
-
   try {
+    console.log('Connecting to database for seeding...');
+    await client.connect();
+    const activeDb = client.db();
+
     console.log('Clearing existing data...');
     // Clean old data
-    await db.collection('recipes').deleteMany({});
-    await db.collection('system_logs').deleteMany({});
+    await activeDb.collection('recipes').deleteMany({});
+    await activeDb.collection('system_logs').deleteMany({});
 
     // Start log
-    await db.collection('system_logs').insertOne({
+    await activeDb.collection('system_logs').insertOne({
       action: 'DATABASE_SEED_START',
       timestamp: new Date(),
       details: 'Seeding process started.',
@@ -156,10 +155,12 @@ async function runSeed() {
     }
 
     console.log(`Inserting ${recipes.length} recipes...`);
-    const insertResult = await db.collection('recipes').insertMany(recipes);
+    const insertResult = await activeDb
+      .collection('recipes')
+      .insertMany(recipes);
 
     // Complete log
-    await db.collection('system_logs').insertOne({
+    await activeDb.collection('system_logs').insertOne({
       action: 'DATABASE_SEED_COMPLETE',
       timestamp: new Date(),
       count: insertResult.insertedCount,

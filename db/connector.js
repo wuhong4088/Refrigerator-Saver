@@ -14,13 +14,15 @@ const client = new MongoClient(uri);
 
 let db = null;
 
-try {
-  // Connect to database
-  await client.connect();
-  db = client.db();
-  console.log('Successfully connected to MongoDB.');
-} catch (error) {
-  console.error('Failed to connect to MongoDB:', error.message);
-}
+// Connect to database asynchronously so it doesn't block module imports on startup
+client
+  .connect()
+  .then(() => {
+    db = client.db();
+    console.log('Successfully connected to MongoDB.');
+  })
+  .catch((error) => {
+    console.error('Failed to connect to MongoDB:', error.message);
+  });
 
 export { client, db };
