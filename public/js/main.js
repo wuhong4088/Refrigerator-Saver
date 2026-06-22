@@ -309,6 +309,7 @@ async function handleDeleteRecipe(recipeId, recipeName) {
         throw new Error(`Failed to delete recipe. Status: ${response.status}`);
       }
 
+      showToast('Recipe deleted successfully!');
       // Re-fetch datasets
       fetchRecipes();
     } catch (error) {
@@ -527,6 +528,11 @@ async function handleFormSubmit(e) {
       );
     }
 
+    showToast(
+      modalMode === 'new'
+        ? 'Recipe created successfully!'
+        : 'Recipe updated successfully!'
+    );
     // Success: Close modal and refresh recipe catalog without reloading the page
     closeRecipeModal();
     fetchRecipes();
@@ -553,4 +559,30 @@ function escapeHTML(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+function showToast(message) {
+  let toast = document.getElementById('success-toast');
+  if (toast) toast.remove();
+
+  toast = document.createElement('div');
+  toast.id = 'success-toast';
+  toast.className = 'toast-notification';
+  toast.innerHTML = `
+    <svg style="width: 18px; height: 18px; color: #ffffff;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+    </svg>
+    <span>${message}</span>
+  `;
+
+  document.body.appendChild(toast);
+  toast.offsetHeight; // force reflow
+  toast.classList.add('visible');
+
+  setTimeout(() => {
+    toast.classList.remove('visible');
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+  }, 3000);
 }

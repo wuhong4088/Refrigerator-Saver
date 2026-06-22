@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Resolve directory paths in ES Modules
+// Set up __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -18,10 +18,10 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// API Routes
+// Routes
 app.use('/api/recipes', recipeRoutes);
 
-// Server health check endpoint
+// Health check
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'UP',
@@ -29,7 +29,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Global error handler
+// Error handler
 app.use((err, req, res, _next) => {
   console.error('Unhandled server error:', err);
   res.status(500).json({ error: 'Internal Server Error' });

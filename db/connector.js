@@ -15,7 +15,7 @@ const client = new MongoClient(uri);
 let db = null;
 
 try {
-  // Establish connection using top-level await in ESM
+  // Connect to database
   await client.connect();
   db = client.db();
   console.log('Successfully connected to MongoDB.');

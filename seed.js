@@ -3,7 +3,7 @@ dotenv.config();
 
 import { client, db } from './db/connector.js';
 
-// Helper to pick random elements from an array
+// Helper to pick random elements
 function getRandomElements(arr, count) {
   const shuffled = [...arr].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
@@ -17,11 +17,11 @@ async function runSeed() {
 
   try {
     console.log('Clearing existing data...');
-    // Clean up collections to ensure seed reproducibility
+    // Clean old data
     await db.collection('recipes').deleteMany({});
     await db.collection('system_logs').deleteMany({});
 
-    // Write seeding start log
+    // Start log
     await db.collection('system_logs').insertOne({
       action: 'DATABASE_SEED_START',
       timestamp: new Date(),
@@ -158,7 +158,7 @@ async function runSeed() {
     console.log(`Inserting ${recipes.length} recipes...`);
     const insertResult = await db.collection('recipes').insertMany(recipes);
 
-    // Write seeding complete log
+    // Complete log
     await db.collection('system_logs').insertOne({
       action: 'DATABASE_SEED_COMPLETE',
       timestamp: new Date(),

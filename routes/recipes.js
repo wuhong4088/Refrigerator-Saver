@@ -4,7 +4,7 @@ import { db } from '../db/connector.js';
 
 const router = Router();
 
-// GET /api/recipes - Get all recipes (supports optional search keyword)
+// Get all recipes
 router.get('/', async (req, res) => {
   if (!db) {
     return res
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     let filterQuery = {};
 
     if (search) {
-      // Basic text search on name or ingredients for search integration
+      // Filter by keyword
       filterQuery = {
         $or: [
           { name: { $regex: search, $options: 'i' } },
@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /api/recipes - Create a new recipe
+// Create new recipe
 router.post('/', async (req, res) => {
   if (!db) {
     return res
@@ -59,9 +59,9 @@ router.post('/', async (req, res) => {
 
     const newRecipe = {
       name,
-      cookingTime, // String format (e.g. "25 mins")
-      ingredients, // String array
-      steps, // String array
+      cookingTime, // "20 mins" format
+      ingredients,
+      steps,
       createdAt: new Date(),
     };
 
@@ -76,7 +76,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT /api/recipes/:id - Update an existing recipe
+// Update recipe
 router.put('/:id', async (req, res) => {
   if (!db) {
     return res
@@ -129,7 +129,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE /api/recipes/:id - Delete a recipe
+// Delete recipe
 router.delete('/:id', async (req, res) => {
   if (!db) {
     return res
