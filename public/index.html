@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Refrigerator Saver</title>
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Modular Stylesheets -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/modal.css" />
+  </head>
+  <body>
+    <!-- App Rounded Container Frame matching Figma -->
+    <div class="app-frame">
+      <!-- Title Header -->
+      <header class="app-header">
+        <h1 class="app-title">REFRIGERATOR SAVER</h1>
+      </header>
+
+      <!-- Action Row (Search & New Recipe Button) -->
+      <section class="action-row">
+        <div class="search-wrapper">
+          <svg
+            class="search-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path
+              d="M21 21l-4.35-4.35"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="search all recipes"
+            aria-label="Search all recipes"
+          />
+        </div>
+        <button id="btn-new-recipe" class="btn-new-recipe">+ new recipe</button>
+      </section>
+
+      <!-- Horizontal Ingredients Filters Row -->
+      <section class="filter-section">
+        <div class="filter-label">Filter by Ingredient:</div>
+        <div id="filter-chips-container" class="filter-chips-flex">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </section>
+
+      <!-- Main Recipes Grid Stream -->
+      <main class="main-content">
+        <div id="recipe-grid" class="recipe-grid">
+          <!-- Populated dynamically by JS -->
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="empty-state" class="empty-state" style="display: none">
+          <p>
+            No recipes found matching your criteria. Try adjusting your search
+            or add a new recipe.
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <!-- Semi-transparent Modal Box Overlay (Form styled like Frame 7) -->
+    <div
+      id="recipe-modal"
+      class="modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      style="display: none"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-title">REFRIGERATOR SAVER</h2>
+          <button
+            id="btn-modal-close"
+            class="btn-close-modal"
+            aria-label="Close modal"
+          >
+            &times;
+          </button>
+        </div>
+
+        <form id="recipe-form" class="modal-form" novalidate>
+          <input type="hidden" id="form-recipe-id" />
+
+          <!-- Recipe Name Field -->
+          <div class="form-group">
+            <label for="form-recipe-name" class="form-label">Recipe Name</label>
+            <input
+              type="text"
+              id="form-recipe-name"
+              placeholder="Recipe Name..."
+              required
+            />
+            <div class="form-error" id="error-recipe-name">
+              Recipe name is required.
+            </div>
+          </div>
+
+          <!-- Cooking Time Field -->
+          <div class="form-group">
+            <label for="form-recipe-time" class="form-label"
+              >Cooking time</label
+            >
+            <div class="time-input-container">
+              <input
+                type="text"
+                id="form-recipe-time"
+                placeholder="00:00 (e.g. 25 mins)"
+                required
+              />
+            </div>
+            <div class="form-error" id="error-recipe-time">
+              Cooking time is required.
+            </div>
+          </div>
+
+          <!-- Ingredients Tag Section -->
+          <div class="form-group">
+            <label for="form-ingredient-input" class="form-label"
+              >Ingredients</label
+            >
+            <div class="ingredients-input-wrapper">
+              <input
+                type="text"
+                id="form-ingredient-input"
+                placeholder="Ingredients..."
+              />
+              <button
+                type="button"
+                id="btn-add-ingredient"
+                class="btn-add-tag-action"
+                aria-label="Add ingredient chip"
+              >
+                +
+              </button>
+            </div>
+            <div id="form-ingredients-chips" class="modal-chips-flex">
+              <!-- Populated dynamically via JS -->
+            </div>
+            <div class="form-error" id="error-recipe-ingredients">
+              At least one ingredient is required.
+            </div>
+          </div>
+
+          <!-- Dynamic Steps Instructions -->
+          <div class="form-group">
+            <label class="form-label">Steps</label>
+            <div id="form-steps-container" class="steps-list-stack">
+              <!-- Dynamically populated steps rows -->
+            </div>
+            <div class="add-step-action-wrapper">
+              <button type="button" id="btn-add-step" class="btn-add-step">
+                + add step
+              </button>
+            </div>
+            <div class="form-error" id="error-recipe-steps">
+              At least one cooking step is required.
+            </div>
+          </div>
+
+          <!-- Footer Control Actions -->
+          <div class="modal-footer">
+            <button type="button" id="btn-modal-cancel" class="btn-cancel">
+              Cancel
+            </button>
+            <button type="submit" id="btn-modal-submit" class="btn-submit">
+              + save recipe
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- JS Logic Core -->
+    <script src="js/main.js"></script>
+  </body>
+</html>

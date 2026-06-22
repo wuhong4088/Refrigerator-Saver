@@ -1,0 +1,327 @@
+/* ==========================================================================
+   MODAL OVERLAY AND FORM DIALOG BOX - Styled exactly like Figma Frame 7
+   ========================================================================= */
+
+/* Semi-transparent Modal Backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(27, 59, 34, 0.4); /* Soft dark green tint */
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 1;
+}
+
+/* Modal Content Card matching Frame 7 container */
+.modal-content {
+  background-color: var(
+    --light-green
+  ); /* Light peach/green background matching Frame 7 */
+  border: 4px solid var(--primary-forest);
+  border-radius: 36px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 40px;
+  box-shadow: 0 20px 48px rgba(27, 59, 34, 0.15);
+  animation: slideUp 0.28s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary-forest);
+  text-transform: uppercase;
+}
+
+/* Close Button (X) */
+.btn-close-modal {
+  background: none;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--primary-forest);
+  cursor: pointer;
+  padding: 4px;
+  font-weight: 800;
+  transition: var(--transition-smooth);
+}
+
+.btn-close-modal:hover {
+  color: var(--danger-color);
+}
+
+/* Form layouts */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-forest);
+  text-transform: capitalize; /* Matches Figma capitalized labels */
+}
+
+/* Input Fields styling - Oval/Pill shape with thick borders */
+.form-group input[type='text'] {
+  width: 100%;
+  padding: 12px 24px;
+  border: 3px solid var(--primary-forest);
+  border-radius: 30px; /* Oval inputs matching Figma Frame 7 */
+  font-family: var(--font-main);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-forest);
+  background-color: var(--white);
+  transition: var(--transition-smooth);
+}
+
+.form-group input[type='text']:focus {
+  outline: none;
+  background-color: #fafdfa;
+}
+
+.form-group input[type='text']::placeholder {
+  color: rgba(27, 59, 34, 0.4);
+}
+
+/* Ingredients tagging container */
+.ingredients-input-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+/* Pill add button */
+.btn-add-tag-action {
+  background-color: var(--primary-forest);
+  color: var(--white);
+  border: 3px solid var(--primary-forest);
+  width: 45px;
+  height: 45px;
+  min-width: 45px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.btn-add-tag-action:hover {
+  background-color: var(--primary-accent);
+}
+
+/* Horizontal display for modal tag chips */
+.modal-chips-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Pill-shaped chips with close button on left */
+.form-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--primary-forest);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.btn-delete-chip {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-right: 4px;
+  transition: var(--transition-smooth);
+}
+
+.btn-delete-chip:hover {
+  color: var(--white);
+}
+
+/* Dynamic Steps Input Stack */
+.steps-list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.step-row-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-number-badge {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-forest);
+  min-width: 50px;
+  white-space: nowrap;
+}
+
+.btn-delete-step-row {
+  background-color: #feebea;
+  color: var(--danger-color);
+  border: 3px solid var(--primary-forest);
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.btn-delete-step-row:hover {
+  background-color: var(--danger-color);
+  color: var(--white);
+}
+
+.add-step-action-wrapper {
+  margin-top: 4px;
+}
+
+/* + add step pill button */
+.btn-add-step {
+  background-color: var(--white);
+  color: var(--primary-forest);
+  border: 3px dashed var(--primary-forest);
+  padding: 8px 16px;
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  text-transform: lowercase; /* Matches Figma '+ add step' */
+  transition: var(--transition-smooth);
+}
+
+.btn-add-step:hover {
+  background-color: var(--light-green);
+  border-style: solid;
+}
+
+/* Validation Feedback Error Label */
+.form-error {
+  display: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--danger-color);
+  margin-top: 2px;
+  padding-left: 12px;
+}
+
+.form-group.invalid input[type='text'] {
+  border-color: var(--danger-color);
+}
+
+.form-group.invalid .form-error {
+  display: block;
+}
+
+/* Modal Footer Action Buttons - Pill shaped */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+  border-top: 2.5px solid rgba(27, 59, 34, 0.1);
+  padding-top: 20px;
+}
+
+.btn-cancel {
+  background-color: var(--white);
+  border: 3.5px solid var(--primary-forest);
+  color: var(--primary-forest);
+  padding: 12px 24px;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-cancel:hover {
+  background-color: var(--bg-light);
+}
+
+.btn-submit {
+  background-color: var(--grass-green);
+  color: var(--white);
+  border: 3.5px solid var(--primary-forest);
+  padding: 12px 24px;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  text-transform: lowercase; /* Matches Figma '+ save recipe' */
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 0 var(--primary-forest);
+}
+
+.btn-submit:hover {
+  background-color: var(--grass-hover);
+  transform: translateY(-1px);
+}
+.btn-submit:active {
+  transform: translateY(0);
+}

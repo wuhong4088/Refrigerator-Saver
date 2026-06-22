@@ -1,0 +1,387 @@
+/* Theme Custom Properties and Design Tokens */
+:root {
+  --primary-forest: #1b3b22; /* Deep Forest Green for borders and headers */
+  --primary-accent: #2e5c38; /* Dark Green accents */
+  --grass-green: #4caf50; /* Warm Grass Green for primary buttons */
+  --grass-hover: #388e3c; /* Hover State Green */
+  --light-green: #e8f5e9; /* Light Accent green for Chips */
+  --text-dark: #1b3b22; /* Dark Forest Green for text */
+  --text-muted: #556b2f; /* Olive green-gray for secondary text */
+  --bg-light: #f5f7f5; /* Light gray page background */
+  --white: #ffffff;
+  --danger-color: #d32f2f; /* Red for deleting */
+
+  --font-main:
+    'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition-smooth: all 0.2s ease-in-out;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding: 40px 20px;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd3cb;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b1bbb1;
+}
+
+/* ==========================================================================
+   APP FRAME - Centered layout matching Figma Frame 5/6
+   ========================================================================== */
+.app-frame {
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 4px solid var(--primary-forest);
+  border-radius: 36px;
+  padding: 48px;
+  box-shadow: 0 16px 40px rgba(27, 59, 34, 0.06);
+}
+
+.app-header {
+  margin-bottom: 24px;
+}
+
+.app-title {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--primary-forest);
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   ACTION ROW - Search & New Recipe Button Inline
+   ========================================================================== */
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.search-wrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--primary-forest);
+  pointer-events: none;
+}
+
+.search-wrapper input {
+  width: 100%;
+  padding: 14px 20px 14px 50px;
+  background-color: #ffffff;
+  border: 3.5px solid var(--primary-forest);
+  border-radius: 30px;
+  color: var(--text-dark);
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: lowercase; /* Matches Figma placeholder 'search all recipes' */
+  transition: var(--transition-smooth);
+}
+
+.search-wrapper input:focus {
+  outline: none;
+  background-color: #fafdfa;
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+}
+
+.search-wrapper input::placeholder {
+  color: rgba(27, 59, 34, 0.4);
+}
+
+/* + New Recipe Action Pill Button */
+.btn-new-recipe {
+  background-color: var(--light-green);
+  color: var(--primary-forest);
+  border: 3.5px solid var(--primary-forest);
+  border-radius: 30px;
+  padding: 14px 28px;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: lowercase; /* Matches Figma '+ new recipe' */
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+}
+
+.btn-new-recipe:hover {
+  background-color: var(--grass-green);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-new-recipe:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   HORIZONTAL FILTER CHIPS ROW
+   ========================================================================== */
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2.5px solid #eef2ee;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.filter-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-accent);
+  white-space: nowrap;
+}
+
+.filter-chips-flex {
+  display: flex;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+/* Filter Chips styles */
+.filter-chip {
+  background-color: #ffffff;
+  border: 2px solid var(--primary-forest);
+  color: var(--primary-forest);
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-smooth);
+}
+
+.filter-chip:hover {
+  background-color: var(--light-green);
+}
+
+.filter-chip.active {
+  background-color: var(--primary-forest);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   RECIPES GRID - Main content stream
+   ========================================================================== */
+.main-content {
+  width: 100%;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+/* Empty State Message */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.empty-state p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   RECIPE CARD STYLING - Square elements matching Figma Frame 5/6
+   ========================================================================== */
+.recipe-card {
+  position: relative;
+  background-color: #fffcfc;
+  border: 3.5px solid var(--primary-forest);
+  border-radius: 24px;
+  padding: 24px;
+  aspect-ratio: 1 / 1; /* Makes card square matching Figma layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition-smooth);
+}
+
+.recipe-card:hover {
+  transform: translateY(-2px);
+  background-color: #ffffff;
+  box-shadow: 0 6px 18px rgba(27, 59, 34, 0.04);
+}
+
+/* Three-Dots Menu Toggle Box */
+.card-menu-container {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+.btn-three-dots {
+  background: #ffffff;
+  border: 2px solid var(--primary-forest);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-forest);
+  font-size: 14px;
+  font-weight: bold;
+  transition: var(--transition-smooth);
+}
+
+.btn-three-dots:hover {
+  background-color: var(--light-green);
+}
+
+/* Dropdown Menu Box */
+.card-dropdown {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  background-color: #ffffff;
+  border: 2.5px solid var(--primary-forest);
+  border-radius: 12px;
+  width: 130px;
+  z-index: 50;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(27, 59, 34, 0.1);
+}
+
+.card-dropdown.active {
+  display: flex;
+}
+
+.btn-dropdown-item {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary-forest);
+  transition: var(--transition-smooth);
+}
+
+.btn-dropdown-item:hover {
+  background-color: var(--light-green);
+}
+
+.btn-dropdown-item.delete-item {
+  color: var(--danger-color);
+  border-top: 1px solid rgba(27, 59, 34, 0.1);
+}
+
+.btn-dropdown-item.delete-item:hover {
+  background-color: #feebea;
+}
+
+/* Card Content details */
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-forest);
+  line-height: 1.3;
+  margin-bottom: 6px;
+  /* Truncate long titles */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-time {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.card-time-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted);
+}
+
+/* Recipe Card Ingredient Badges */
+.card-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: 52px;
+  overflow: hidden;
+}
+
+.ingredient-badge {
+  background-color: var(--light-green);
+  color: var(--primary-accent);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(27, 59, 34, 0.1);
+  white-space: nowrap;
+}
