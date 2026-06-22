@@ -3,8 +3,8 @@
 An interactive recipe management dashboard designed to reduce household food waste by matching available ingredients to delicious meals.
 
 **Author**: Wu Hung Hsiao & Logan  
-**Class Link**: [CS 5610 Web Development (Online) Northeastern University Oakland, Summer 2026](https://johnguerra.co/classes/webDevelopment_online_summer_2026/)  
-**Public Page (Deployed URL)**: [Refrigerator Saver on Render](https://refrigerator-saver.onrender.com) (Or your actual deployed Render URL)
+**Class Link**: [CS 5610 Web Development](https://johnguerra.co/classes/webDevelopment_online_summer_2026/)  
+**Public Page (Deployed URL)**: [Refrigerator Saver](https://refrigerator-saver.onrender.com)
 
 ---
 
@@ -16,8 +16,8 @@ Refrigerator Saver is a full-stack recipe management web app that helps students
 
 ## Short User Personas
 
-- **Kevin (The Busy Student)**: A Northeastern student juggling classes and part-time work. His fridge is full of random leftover ingredients, and he needs to find a quick, practical meal he can cook in under 20 minutes before heading to his next class — without having to Google through endless recipe blogs.
-- **Chef Elena (The Site Admin)**: A web administrator responsible for maintaining the quality of the shared recipe database. When she spots a recipe with incorrect ingredients, wrong cooking time, or missing steps, she needs to be able to jump in and fix it immediately — or remove it entirely — without any technical friction.
+- **Kevin**: A Northeastern student juggling classes and part-time work. His fridge is full of random leftover ingredients, and he needs to find a quick, practical meal he can cook in under 20 minutes before heading to his next class — without having to Google through endless recipe blogs.
+- **Elena**: A web administrator responsible for maintaining the quality of the shared recipe database. When she spots a recipe with incorrect ingredients, wrong cooking time, or missing steps, she needs to be able to jump in and fix it immediately — or remove it entirely — without any technical friction.
 
 ---
 
@@ -33,15 +33,11 @@ Refrigerator Saver is a full-stack recipe management web app that helps students
 - **@Logan**: Search & filter — keyword search bar + ingredient chip filtering, fetches matching recipes from MongoDB without page refresh. Includes all associated frontend and backend routes.
 - **@Wu Hung Hsiao**: Recipe management — three-dot menu (edit/delete) on each card + the create/edit recipe form that writes to MongoDB. Includes all associated frontend and backend routes.
 
-_Each feature uses separate frontend components and backend API routes. Either member can finish and demo their feature independently._
 
 ---
 
 ## Screenshot
 
-![Refrigerator Saver Screen Mockup](https://raw.githubusercontent.com/wuhong4088/Refrigerator-Saver/main/public/screenshot-placeholder.png)
-
-_(A high-resolution layout preview screenshot of the single-column recipes grid and red/peach Figma color palette)_
 
 ---
 
@@ -58,8 +54,8 @@ _(A high-resolution layout preview screenshot of the single-column recipes grid 
 
 ### Prerequisites
 
-- Node.js (v18.0.0 or higher recommended)
-- A running MongoDB instance (local or Cloud Atlas URL)
+- Node.js
+- A running MongoDB instance
 
 ### 1. Clone & Set Up Directory
 
@@ -114,7 +110,7 @@ The design document is available in [DESIGN.md](file:///Users/hung/Desktop/git/R
 
 ## Submission Links
 
-- **Deployed URL**: [Refrigerator Saver on Render](https://refrigerator-saver-wuhong4088.onrender.com) (Or your actual deployed Render URL)
+- **Deployed URL**: [Refrigerator Saver](https://refrigerator-saver.onrender.com)
 
 ---
 
