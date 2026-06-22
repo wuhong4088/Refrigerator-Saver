@@ -1,13 +1,13 @@
 /* Theme Custom Properties and Design Tokens */
 :root {
-  --primary-forest: #1b3b22; /* Deep Forest Green for borders and headers */
-  --primary-accent: #2e5c38; /* Dark Green accents */
-  --grass-green: #4caf50; /* Warm Grass Green for primary buttons */
-  --grass-hover: #388e3c; /* Hover State Green */
-  --light-green: #e8f5e9; /* Light Accent green for Chips */
-  --text-dark: #1b3b22; /* Dark Forest Green for text */
-  --text-muted: #556b2f; /* Olive green-gray for secondary text */
-  --bg-light: #f5f7f5; /* Light gray page background */
+  --primary-forest: #e63946; /* Vibrant Red for borders and headers */
+  --primary-accent: #c92a2a; /* Darker Red accents */
+  --grass-green: #ff4d4d; /* Bright Red for primary buttons */
+  --grass-hover: #e60000; /* Hover State Red */
+  --light-green: #ffe8e6; /* Light Peach/Pink for Card Backgrounds */
+  --text-dark: #e63946; /* Theme Red for main text and titles */
+  --text-muted: #b05b5f; /* Muted Red for secondary text */
+  --bg-light: #ffe8e6; /* Soft Peach/Pink page background matching Figma */
   --white: #ffffff;
   --danger-color: #d32f2f; /* Red for deleting */
 
