@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import recipeRoutes from './routes/recipes.js';
+import logRoutes from './routes/logs.js';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api/recipes', recipeRoutes);
+app.use('/api/logs', logRoutes);
 
 // Error handler
 app.use((err, req, res, _next) => {
