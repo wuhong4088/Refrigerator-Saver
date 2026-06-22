@@ -74,6 +74,36 @@
       </main>
     </div>
 
+    <!-- Collapsible System Log Panel (To satisfy the 2nd CRUD collection requirement) -->
+    <div class="logs-panel-wrapper">
+      <button type="button" id="btn-toggle-logs" class="btn-toggle-logs">
+        Toggle System Audit Logs
+      </button>
+      <div id="logs-content" class="logs-content" style="display: none">
+        <div class="logs-header">
+          <h3>System Audit Logs</h3>
+          <button
+            type="button"
+            id="btn-clear-all-logs"
+            class="btn-clear-all-logs"
+          >
+            Clear Logs List
+          </button>
+        </div>
+        <div class="log-add-wrapper">
+          <input
+            type="text"
+            id="log-custom-input"
+            placeholder="Add custom log annotation..."
+          />
+          <button type="button" id="btn-add-custom-log">Add Log</button>
+        </div>
+        <ul id="logs-list" class="logs-list">
+          <!-- Populated dynamically -->
+        </ul>
+      </div>
+    </div>
+
     <!-- Semi-transparent Modal Box Overlay (Form styled like Frame 7) -->
     <div
       id="recipe-modal"

@@ -33,11 +33,9 @@ Refrigerator Saver is a full-stack recipe management web app that helps students
 - **@Logan**: Search & filter — keyword search bar + ingredient chip filtering, fetches matching recipes from MongoDB without page refresh. Includes all associated frontend and backend routes.
 - **@Wu Hung Hsiao**: Recipe management — three-dot menu (edit/delete) on each card + the create/edit recipe form that writes to MongoDB. Includes all associated frontend and backend routes.
 
-
 ---
 
 ## Screenshot
-
 
 ---
 

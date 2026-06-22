@@ -31,6 +31,7 @@ const btnAddStep = document.getElementById('btn-add-step');
 // Init
 setupEventListeners();
 fetchRecipes();
+setupLogsPanel();
 
 function setupEventListeners() {
   // ===== LOGAN SEARCH PART START =====
@@ -279,6 +280,7 @@ async function handleDeleteRecipe(recipeId, recipeName) {
       }
 
       showToast('Recipe deleted successfully!');
+      logUserAction('RECIPE_DELETE', `Deleted recipe: ${recipeName}`);
       fetchRecipes();
     } catch (error) {
       console.error('Delete error:', error);
@@ -477,6 +479,10 @@ async function handleFormSubmit(e) {
         ? 'Recipe created successfully!'
         : 'Recipe updated successfully!'
     );
+    logUserAction(
+      modalMode === 'new' ? 'RECIPE_CREATE' : 'RECIPE_UPDATE',
+      `${modalMode === 'new' ? 'Created' : 'Updated'} recipe: ${name}`
+    );
     closeRecipeModal();
     fetchRecipes();
   } catch (error) {
@@ -527,4 +533,159 @@ function showToast(message) {
       toast.remove();
     }, 300);
   }, 3000);
+}
+
+// Logs panel logic
+let isLogsOpen = false;
+
+function setupLogsPanel() {
+  const btnToggleLogs = document.getElementById('btn-toggle-logs');
+  const logsContent = document.getElementById('logs-content');
+  const btnAddCustomLog = document.getElementById('btn-add-custom-log');
+  const logCustomInput = document.getElementById('log-custom-input');
+  const btnClearAllLogs = document.getElementById('btn-clear-all-logs');
+
+  if (!btnToggleLogs || !logsContent) return;
+
+  btnToggleLogs.addEventListener('click', () => {
+    isLogsOpen = !isLogsOpen;
+    logsContent.style.display = isLogsOpen ? 'block' : 'none';
+    if (isLogsOpen) {
+      fetchAndRenderLogs();
+    }
+  });
+
+  btnAddCustomLog.addEventListener('click', async () => {
+    const val = logCustomInput.value.trim();
+    if (!val) return;
+
+    try {
+      const response = await fetch('/api/logs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'USER_NOTE', details: val }),
+      });
+      if (response.ok) {
+        logCustomInput.value = '';
+        fetchAndRenderLogs();
+      }
+    } catch (err) {
+      console.error('Failed to add custom log:', err);
+    }
+  });
+
+  logCustomInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      btnAddCustomLog.click();
+    }
+  });
+
+  btnClearAllLogs.addEventListener('click', async () => {
+    if (confirm('Clear audit logs history?')) {
+      try {
+        const res = await fetch('/api/logs');
+        const logs = await res.json();
+        for (const log of logs) {
+          await fetch(`/api/logs/${log._id}`, { method: 'DELETE' });
+        }
+        fetchAndRenderLogs();
+      } catch (err) {
+        console.error('Failed to clear logs:', err);
+      }
+    }
+  });
+}
+
+async function fetchAndRenderLogs() {
+  const logsList = document.getElementById('logs-list');
+  if (!logsList) return;
+
+  try {
+    const response = await fetch('/api/logs');
+    if (!response.ok) throw new Error('Failed to fetch logs');
+    const logs = await response.json();
+
+    logsList.innerHTML = '';
+    if (logs.length === 0) {
+      logsList.innerHTML =
+        '<li style="text-align: center; color: var(--text-muted); font-size: 12px; padding: 10px;">No audit logs recorded yet.</li>';
+      return;
+    }
+
+    logs.forEach((log) => {
+      const li = document.createElement('li');
+      li.className = 'log-item';
+      const timeStr = new Date(log.timestamp).toLocaleTimeString();
+      li.innerHTML = `
+        <div class="log-info-stack">
+          <div class="log-badge-row">
+            <span class="log-badge-action">${escapeHTML(log.action)}</span>
+            <span class="log-time-stamp">${timeStr}</span>
+          </div>
+          <span class="log-item-details">${escapeHTML(log.details)}</span>
+        </div>
+        <div class="log-actions-flex">
+          <button type="button" class="btn-edit-log-row" title="Edit Log">✏️</button>
+          <button type="button" class="btn-delete-log-row" title="Delete Log">&times;</button>
+        </div>
+      `;
+
+      li.querySelector('.btn-edit-log-row').addEventListener(
+        'click',
+        async () => {
+          const newDetails = prompt('Update log description:', log.details);
+          if (newDetails !== null) {
+            const trimmed = newDetails.trim();
+            if (trimmed) {
+              try {
+                const res = await fetch(`/api/logs/${log._id}`, {
+                  method: 'PUT',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ details: trimmed }),
+                });
+                if (res.ok) fetchAndRenderLogs();
+              } catch (err) {
+                console.error('Failed to update log:', err);
+              }
+            }
+          }
+        }
+      );
+
+      li.querySelector('.btn-delete-log-row').addEventListener(
+        'click',
+        async () => {
+          try {
+            const res = await fetch(`/api/logs/${log._id}`, {
+              method: 'DELETE',
+            });
+            if (res.ok) fetchAndRenderLogs();
+          } catch (err) {
+            console.error('Failed to delete log:', err);
+          }
+        }
+      );
+
+      logsList.appendChild(li);
+    });
+  } catch (err) {
+    console.error(err);
+    logsList.innerHTML =
+      '<li style="color: var(--danger-color);">Error loading logs.</li>';
+  }
+}
+
+async function logUserAction(action, details) {
+  try {
+    await fetch('/api/logs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, details }),
+    });
+    if (isLogsOpen) {
+      fetchAndRenderLogs();
+    }
+  } catch (err) {
+    console.error('Logging action failed:', err);
+  }
 }
