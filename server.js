@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import recipeRoutes from './routes/recipes.js';
-import { db } from './db/connector.js';
 
 dotenv.config();
 
@@ -20,14 +19,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api/recipes', recipeRoutes);
-
-// Health check
-app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'UP',
-    database: db ? 'CONNECTED' : 'DISCONNECTED',
-  });
-});
 
 // Error handler
 app.use((err, req, res, _next) => {

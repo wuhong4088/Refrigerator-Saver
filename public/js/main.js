@@ -1,98 +1,81 @@
-/**
- * Refrigerator Saver - Core Client Application Logic
- * Implements CSR (Client-Side Rendering) with pure Vanilla JavaScript
- */
+// main.js - frontend logic
 
-// Global State
 let globalRecipes = [];
 const activeIngredientFilters = new Set();
 let currentSearchQuery = '';
 
-// Active Modal State
-let modalMode = 'new'; // 'new' or 'edit'
+let modalMode = 'new';
 let activeEditRecipeId = null;
 let modalIngredients = [];
 
-// DOM Elements
-const elements = {
-  recipeGrid: document.getElementById('recipe-grid'),
-  emptyState: document.getElementById('empty-state'),
-  searchInput: document.getElementById('search-input'),
-  filterChipsContainer: document.getElementById('filter-chips-container'),
-  btnNewRecipe: document.getElementById('btn-new-recipe'),
+// DOM elements
+const recipeGrid = document.getElementById('recipe-grid');
+const emptyState = document.getElementById('empty-state');
+const searchInput = document.getElementById('search-input');
+const filterChipsContainer = document.getElementById('filter-chips-container');
+const btnNewRecipe = document.getElementById('btn-new-recipe');
 
-  // Modal Elements
-  recipeModal: document.getElementById('recipe-modal'),
-  modalTitle: document.getElementById('modal-title'),
-  btnModalClose: document.getElementById('btn-modal-close'),
-  btnModalCancel: document.getElementById('btn-modal-cancel'),
-  recipeForm: document.getElementById('recipe-form'),
-  formRecipeId: document.getElementById('form-recipe-id'),
-  formRecipeName: document.getElementById('form-recipe-name'),
-  formRecipeTime: document.getElementById('form-recipe-time'),
-  formIngredientInput: document.getElementById('form-ingredient-input'),
-  btnAddIngredient: document.getElementById('btn-add-ingredient'),
-  formIngredientsChips: document.getElementById('form-ingredients-chips'),
-  formStepsContainer: document.getElementById('form-steps-container'),
-  btnAddStep: document.getElementById('btn-add-step'),
-};
+const recipeModal = document.getElementById('recipe-modal');
+const btnModalClose = document.getElementById('btn-modal-close');
+const btnModalCancel = document.getElementById('btn-modal-cancel');
+const recipeForm = document.getElementById('recipe-form');
+const formRecipeId = document.getElementById('form-recipe-id');
+const formRecipeName = document.getElementById('form-recipe-name');
+const formRecipeTime = document.getElementById('form-recipe-time');
+const formIngredientInput = document.getElementById('form-ingredient-input');
+const btnAddIngredient = document.getElementById('btn-add-ingredient');
+const formIngredientsChips = document.getElementById('form-ingredients-chips');
+const formStepsContainer = document.getElementById('form-steps-container');
+const btnAddStep = document.getElementById('btn-add-step');
 
-// ==========================================================================
-// INITIALIZATION
-// ==========================================================================
-document.addEventListener('DOMContentLoaded', () => {
-  setupEventListeners();
-  fetchRecipes();
-});
+// Init
+setupEventListeners();
+fetchRecipes();
 
-// ==========================================================================
-// EVENT LISTENERS SETUP
-// ==========================================================================
 function setupEventListeners() {
-  // Search Keyup handler with simple debounce/throttling
+  // ===== LOGAN SEARCH PART START =====
+  // Hey Logan, this is where your search input logic goes.
+  // I set up a quick 250ms delay so it doesn't spam the server.
+  // It calls fetchRecipes() which already handles the API query string.
+  // Feel free to modify or replace this block!
   let searchTimeout;
-  elements.searchInput.addEventListener('input', (e) => {
+  searchInput.addEventListener('input', (e) => {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
       currentSearchQuery = e.target.value.trim();
-      fetchRecipes(); // Re-fetch with search filter applied
+      fetchRecipes();
     }, 250);
   });
+  // ===== LOGAN SEARCH PART END =====
 
-  // Modal Open Trigger
-  elements.btnNewRecipe.addEventListener('click', () => {
+  btnNewRecipe.addEventListener('click', () => {
     openRecipeModal('new');
   });
 
-  // Modal Close Triggers
-  elements.btnModalClose.addEventListener('click', closeRecipeModal);
-  elements.btnModalCancel.addEventListener('click', closeRecipeModal);
+  btnModalClose.addEventListener('click', closeRecipeModal);
+  btnModalCancel.addEventListener('click', closeRecipeModal);
 
-  // Close modal when clicking on background backdrop
-  elements.recipeModal.addEventListener('click', (e) => {
-    if (e.target === elements.recipeModal) {
+  recipeModal.addEventListener('click', (e) => {
+    if (e.target === recipeModal) {
       closeRecipeModal();
     }
   });
 
-  // Form Ingredients Adder
-  elements.btnAddIngredient.addEventListener('click', handleAddFormIngredient);
-  elements.formIngredientInput.addEventListener('keydown', (e) => {
+  btnAddIngredient.addEventListener('click', handleAddFormIngredient);
+  formIngredientInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleAddFormIngredient();
     }
   });
 
-  // Form Steps Row Adder
-  elements.btnAddStep.addEventListener('click', () => {
+  btnAddStep.addEventListener('click', () => {
     addStepInputRow('');
   });
 
-  // Form Submit handler
-  elements.recipeForm.addEventListener('submit', handleFormSubmit);
+  recipeForm.addEventListener('submit', handleFormSubmit);
 
-  // Global document click handler to close active three-dot dropdowns when clicking outside
+  // Close dropdowns if clicking outside
   document.addEventListener('click', (e) => {
     const dropdowns = document.querySelectorAll('.card-dropdown');
     dropdowns.forEach((dropdown) => {
@@ -104,12 +87,9 @@ function setupEventListeners() {
   });
 }
 
-// ==========================================================================
-// DATA FETCHING & FILTER PROCESSING
-// ==========================================================================
+// Fetch data from backend
 async function fetchRecipes() {
   try {
-    // Incorporate the search term in API request if query is active
     let url = '/api/recipes';
     if (currentSearchQuery) {
       url += `?search=${encodeURIComponent(currentSearchQuery)}`;
@@ -117,27 +97,25 @@ async function fetchRecipes() {
 
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`HTTP Error: ${response.status}`);
+      throw new Error(`Status error: ${response.status}`);
     }
 
     globalRecipes = await response.json();
-
-    // Extract unique ingredients list to populate filtering chips
     updateFilterChipsPanel();
-
-    // Render current dataset
     renderRecipes();
   } catch (error) {
-    console.error('Failed to load recipes:', error);
-    elements.recipeGrid.innerHTML = `<div class="error-panel" style="grid-column: 1 / -1; padding: 20px; text-align: center; border: 3px solid var(--primary-forest); border-radius: var(--border-radius-lg); font-weight: 700;">Error loading recipes from database. Please ensure your backend server and MongoDB connection are active.</div>`;
+    console.error('Fetch error:', error);
+    recipeGrid.innerHTML = `<div class="error-panel" style="grid-column: 1 / -1; padding: 20px; text-align: center; border: 3px solid var(--primary-forest); border-radius: 16px; font-weight: 700;">Error loading recipes. Please check server connection.</div>`;
   }
 }
 
-// Extract ingredients dynamically from all fetched recipes to make filter chips
+// ===== LOGAN FILTER CHIPS START =====
+// Logan, this function renders the ingredient chips right below the search bar.
+// It collects unique ingredients from the active recipes list and makes them buttons.
+// Feel free to replace this with your own styling or implementation!
 function updateFilterChipsPanel() {
   const allIngredientsSet = new Set();
 
-  // Collect all ingredients from the active recipe list
   globalRecipes.forEach((recipe) => {
     if (Array.isArray(recipe.ingredients)) {
       recipe.ingredients.forEach((ing) => {
@@ -148,7 +126,6 @@ function updateFilterChipsPanel() {
 
   const uniqueIngredients = Array.from(allIngredientsSet).sort();
 
-  // Save current active filters that might no longer exist in the new dataset
   const currentActive = Array.from(activeIngredientFilters);
   activeIngredientFilters.clear();
   currentActive.forEach((ing) => {
@@ -157,11 +134,10 @@ function updateFilterChipsPanel() {
     }
   });
 
-  // Render filter chips
-  elements.filterChipsContainer.innerHTML = '';
+  filterChipsContainer.innerHTML = '';
 
   if (uniqueIngredients.length === 0) {
-    elements.filterChipsContainer.innerHTML =
+    filterChipsContainer.innerHTML =
       '<span style="font-size: 13px; font-weight: 600; color: var(--text-muted);">No ingredients available.</span>';
     return;
   }
@@ -186,20 +162,21 @@ function updateFilterChipsPanel() {
       renderRecipes();
     });
 
-    elements.filterChipsContainer.appendChild(chipButton);
+    filterChipsContainer.appendChild(chipButton);
   });
 }
+// ===== LOGAN FILTER CHIPS END =====
 
-// ==========================================================================
-// RENDERING CARDS GRID
-// ==========================================================================
+// Render recipes on the page
 function renderRecipes() {
-  // Apply local filtering based on sidebar chips selection
+  // ===== LOGAN CARD FILTERING START =====
+  // Logan, this handles filtering the recipes locally based on the chips clicked.
+  // It filters out any recipes that don't match the selected ingredients.
+  // Feel free to update how this array filtering works!
   let filteredList = globalRecipes;
 
   if (activeIngredientFilters.size > 0) {
     filteredList = globalRecipes.filter((recipe) => {
-      // Recipe must contain ALL selected active ingredients
       return Array.from(activeIngredientFilters).every((filterIng) =>
         recipe.ingredients.some(
           (recipeIng) => recipeIng.toLowerCase() === filterIng.toLowerCase()
@@ -207,23 +184,22 @@ function renderRecipes() {
       );
     });
   }
+  // ===== LOGAN CARD FILTERING END =====
 
-  // Clear Grid container
-  elements.recipeGrid.innerHTML = '';
+  recipeGrid.innerHTML = '';
 
   if (filteredList.length === 0) {
-    elements.emptyState.style.display = 'block';
+    emptyState.style.display = 'block';
     return;
   }
 
-  elements.emptyState.style.display = 'none';
+  emptyState.style.display = 'none';
 
   filteredList.forEach((recipe) => {
     const card = document.createElement('article');
     card.className = 'recipe-card';
     card.dataset.id = recipe._id;
 
-    // Build ingredient tags HTML
     const ingredientsHtml = (recipe.ingredients || [])
       .map((ing) => `<span class="ingredient-badge">${escapeHTML(ing)}</span>`)
       .join('');
@@ -261,104 +237,85 @@ function renderRecipes() {
       </div>
     `;
 
-    // Hook events inside the recipe card
     const btnThreeDots = card.querySelector('.btn-three-dots');
     const dropdown = card.querySelector('.card-dropdown');
     const btnEdit = card.querySelector('.edit-action');
     const btnDelete = card.querySelector('.delete-action');
 
-    // Click on three dots opens menu
     btnThreeDots.addEventListener('click', (e) => {
       e.stopPropagation();
-      // Close all other dropdown menus first
       document.querySelectorAll('.card-dropdown').forEach((d) => {
         if (d !== dropdown) d.classList.remove('active');
       });
       dropdown.classList.toggle('active');
     });
 
-    // Edit action trigger
     btnEdit.addEventListener('click', (e) => {
       e.stopPropagation();
       dropdown.classList.remove('active');
       openRecipeModal('edit', recipe._id);
     });
 
-    // Delete action trigger
     btnDelete.addEventListener('click', (e) => {
       e.stopPropagation();
       dropdown.classList.remove('active');
       handleDeleteRecipe(recipe._id, recipe.name);
     });
 
-    elements.recipeGrid.appendChild(card);
+    recipeGrid.appendChild(card);
   });
 }
 
-// ==========================================================================
-// RECIPE DELETION HANDLER
-// ==========================================================================
+// Delete recipe
 async function handleDeleteRecipe(recipeId, recipeName) {
-  if (confirm(`Are you sure you want to delete the recipe "${recipeName}"?`)) {
+  if (confirm(`Are you sure you want to delete "${recipeName}"?`)) {
     try {
       const response = await fetch(`/api/recipes/${recipeId}`, {
         method: 'DELETE',
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to delete recipe. Status: ${response.status}`);
+        throw new Error(`Delete failed: ${response.status}`);
       }
 
       showToast('Recipe deleted successfully!');
-      // Re-fetch datasets
       fetchRecipes();
     } catch (error) {
-      console.error('Delete operation failed:', error);
-      alert('Failed to delete recipe. Check console logs for details.');
+      console.error('Delete error:', error);
+      alert('Failed to delete recipe.');
     }
   }
 }
 
-// ==========================================================================
-// MODAL WORKFLOW & FORM ACTIONS
-// ==========================================================================
+// Modal logic
 function openRecipeModal(mode, recipeId = null) {
   modalMode = mode;
   activeEditRecipeId = recipeId;
   modalIngredients = [];
 
-  // Clear any existing invalid state layouts
   clearValidationState();
-
-  // Reset/Empty steps fields
-  elements.formStepsContainer.innerHTML = '';
+  formStepsContainer.innerHTML = '';
 
   if (mode === 'new') {
-    elements.formRecipeId.value = '';
-    elements.formRecipeName.value = '';
-    elements.formRecipeTime.value = '';
-    elements.formIngredientInput.value = '';
-    elements.formIngredientsChips.innerHTML = '';
+    formRecipeId.value = '';
+    formRecipeName.value = '';
+    formRecipeTime.value = '';
+    formIngredientInput.value = '';
+    formIngredientsChips.innerHTML = '';
 
-    // Add one default empty step input row to begin
     addStepInputRow('');
   } else if (mode === 'edit') {
     const recipe = globalRecipes.find((r) => r._id === recipeId);
-    if (!recipe) {
-      alert('Error fetching recipe from memory.');
-      return;
-    }
+    if (!recipe) return;
 
-    elements.formRecipeId.value = recipe._id;
-    elements.formRecipeName.value = recipe.name;
-    elements.formRecipeTime.value = recipe.cookingTime;
-    elements.formIngredientInput.value = '';
+    formRecipeId.value = recipe._id;
+    formRecipeName.value = recipe.name;
+    formRecipeTime.value = recipe.cookingTime;
+    formIngredientInput.value = '';
 
-    // Populate ingredients chips from item
     modalIngredients = [...(recipe.ingredients || [])];
     renderFormIngredientsChips();
 
-    // Populate steps rows
     const steps = recipe.steps || [];
     if (steps.length === 0) {
       addStepInputRow('');
@@ -369,61 +326,58 @@ function openRecipeModal(mode, recipeId = null) {
     }
   }
 
-  // Display backdrop screen
-  elements.recipeModal.style.display = 'flex';
-  document.body.style.overflow = 'hidden'; // Lock main scrolling window
+  recipeModal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
 }
 
 function closeRecipeModal() {
-  elements.recipeModal.style.display = 'none';
-  document.body.style.overflow = ''; // Release window scroll lock
+  recipeModal.style.display = 'none';
+  document.body.style.overflow = '';
 }
 
-// Add an ingredient chip to the modal list
+// Add ingredient tag
 function handleAddFormIngredient() {
-  const val = elements.formIngredientInput.value.trim();
+  const val = formIngredientInput.value.trim();
   if (val) {
-    // Prevent duplicate ingredient tags within the same recipe
     if (
       !modalIngredients.some((ing) => ing.toLowerCase() === val.toLowerCase())
     ) {
       modalIngredients.push(val);
       renderFormIngredientsChips();
     }
-    elements.formIngredientInput.value = '';
-    elements.formIngredientInput.focus();
+    formIngredientInput.value = '';
+    formIngredientInput.focus();
   }
 }
 
-// Remove ingredient chip from list
+// Remove ingredient tag
 function removeFormIngredientChip(index) {
   modalIngredients.splice(index, 1);
   renderFormIngredientsChips();
 }
 
-// Render dynamic chips for modal form
+// Show ingredient chips in form
 function renderFormIngredientsChips() {
-  elements.formIngredientsChips.innerHTML = '';
+  formIngredientsChips.innerHTML = '';
   modalIngredients.forEach((ing, index) => {
     const chip = document.createElement('span');
     chip.className = 'form-chip';
     chip.innerHTML = `
-      <button type="button" class="btn-delete-chip" aria-label="Remove ingredient">X</button>
+      <button type="button" class="btn-delete-chip" aria-label="Remove">X</button>
       <span>${escapeHTML(ing)}</span>
     `;
 
-    // Wire delete button
     chip.querySelector('.btn-delete-chip').addEventListener('click', () => {
       removeFormIngredientChip(index);
     });
 
-    elements.formIngredientsChips.appendChild(chip);
+    formIngredientsChips.appendChild(chip);
   });
 }
 
-// Append a new dynamic step input row inside the steps stack
+// Add dynamic step input
 function addStepInputRow(initialText = '') {
-  const rowCount = elements.formStepsContainer.children.length;
+  const rowCount = formStepsContainer.children.length;
   const stepNumber = rowCount + 1;
 
   const row = document.createElement('div');
@@ -431,41 +385,36 @@ function addStepInputRow(initialText = '') {
   row.innerHTML = `
     <span class="step-number-badge">Step ${stepNumber}</span>
     <input type="text" placeholder="Describe this cooking step..." value="${escapeHTML(initialText)}" required />
-    <button type="button" class="btn-delete-step-row" aria-label="Delete step row">&times;</button>
+    <button type="button" class="btn-delete-step-row" aria-label="Delete">&times;</button>
   `;
 
-  // Bind delete action
   row.querySelector('.btn-delete-step-row').addEventListener('click', () => {
     row.remove();
     reindexStepNumbers();
   });
 
-  elements.formStepsContainer.appendChild(row);
+  formStepsContainer.appendChild(row);
 }
 
-// Re-adjust numbers (Step 1, Step 2, etc.) when rows are dynamically removed
+// Re-number steps
 function reindexStepNumbers() {
-  const rows = elements.formStepsContainer.querySelectorAll('.step-row-item');
+  const rows = formStepsContainer.querySelectorAll('.step-row-item');
   rows.forEach((row, index) => {
     const label = row.querySelector('.step-number-badge');
     if (label) label.textContent = `Step ${index + 1}`;
   });
 }
 
-// ==========================================================================
-// FORM SUBMISSION & VALIDATION
-// ==========================================================================
+// Submit form
 async function handleFormSubmit(e) {
   e.preventDefault();
-
   clearValidationState();
 
-  const name = elements.formRecipeName.value.trim();
-  const cookingTime = elements.formRecipeTime.value.trim();
+  const name = formRecipeName.value.trim();
+  const cookingTime = formRecipeTime.value.trim();
 
-  // Extract steps from input elements
   const steps = [];
-  const stepInputs = elements.formStepsContainer.querySelectorAll(
+  const stepInputs = formStepsContainer.querySelectorAll(
     '.step-row-item input[type="text"]'
   );
   stepInputs.forEach((input) => {
@@ -473,25 +422,22 @@ async function handleFormSubmit(e) {
     if (val) steps.push(val);
   });
 
-  // Client-Side validation flags
   let isValid = true;
 
   if (!name) {
-    elements.formRecipeName.parentElement.classList.add('invalid');
+    formRecipeName.parentElement.classList.add('invalid');
     isValid = false;
   }
   if (!cookingTime) {
-    elements.formRecipeTime.parentElement.parentElement.classList.add(
-      'invalid'
-    );
+    formRecipeTime.parentElement.parentElement.classList.add('invalid');
     isValid = false;
   }
   if (modalIngredients.length === 0) {
-    elements.formIngredientsChips.parentElement.classList.add('invalid');
+    formIngredientsChips.parentElement.classList.add('invalid');
     isValid = false;
   }
   if (steps.length === 0) {
-    elements.formStepsContainer.parentElement.classList.add('invalid');
+    formStepsContainer.parentElement.classList.add('invalid');
     isValid = false;
   }
 
@@ -523,9 +469,7 @@ async function handleFormSubmit(e) {
 
     if (!response.ok) {
       const errRes = await response.json();
-      throw new Error(
-        errRes.error || `Server failed response: ${response.status}`
-      );
+      throw new Error(errRes.error || `Error status: ${response.status}`);
     }
 
     showToast(
@@ -533,24 +477,21 @@ async function handleFormSubmit(e) {
         ? 'Recipe created successfully!'
         : 'Recipe updated successfully!'
     );
-    // Success: Close modal and refresh recipe catalog without reloading the page
     closeRecipeModal();
     fetchRecipes();
   } catch (error) {
-    console.error('Failed to submit form data:', error);
-    alert(`Failed to save recipe: ${error.message}`);
+    console.error('Submit error:', error);
+    alert(`Failed to save: ${error.message}`);
   }
 }
 
-// Reset error layouts
+// Clear input errors
 function clearValidationState() {
   const invalidGroups = document.querySelectorAll('.form-group.invalid');
   invalidGroups.forEach((grp) => grp.classList.remove('invalid'));
 }
 
-// ==========================================================================
-// UTILITIES
-// ==========================================================================
+// Escape HTML utility
 function escapeHTML(str) {
   if (!str) return '';
   return str
@@ -561,6 +502,7 @@ function escapeHTML(str) {
     .replace(/'/g, '&#039;');
 }
 
+// Show success toast
 function showToast(message) {
   let toast = document.getElementById('success-toast');
   if (toast) toast.remove();
@@ -576,7 +518,7 @@ function showToast(message) {
   `;
 
   document.body.appendChild(toast);
-  toast.offsetHeight; // force reflow
+  toast.offsetHeight;
   toast.classList.add('visible');
 
   setTimeout(() => {

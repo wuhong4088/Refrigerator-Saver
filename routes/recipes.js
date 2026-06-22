@@ -92,30 +92,19 @@ router.put('/:id', async (req, res) => {
       return res.status(400).json({ error: 'Invalid recipe ID format.' });
     }
 
-    const updateFields = {};
-    if (name !== undefined) updateFields.name = name;
-    if (cookingTime !== undefined) updateFields.cookingTime = cookingTime;
-    if (ingredients !== undefined) {
-      if (!Array.isArray(ingredients)) {
-        return res.status(400).json({ error: 'Ingredients must be an array.' });
-      }
-      updateFields.ingredients = ingredients;
-    }
-    if (steps !== undefined) {
-      if (!Array.isArray(steps)) {
-        return res.status(400).json({ error: 'Steps must be an array.' });
-      }
-      updateFields.steps = steps;
-    }
-
-    if (Object.keys(updateFields).length === 0) {
-      return res.status(400).json({ error: 'No fields provided for update.' });
+    if (
+      !name ||
+      !cookingTime ||
+      !Array.isArray(ingredients) ||
+      !Array.isArray(steps)
+    ) {
+      return res.status(400).json({ error: 'Missing required fields.' });
     }
 
     const filter = { _id: new ObjectId(id) };
     const updateResult = await db
       .collection('recipes')
-      .updateOne(filter, { $set: updateFields });
+      .updateOne(filter, { $set: { name, cookingTime, ingredients, steps } });
 
     if (updateResult.matchedCount === 0) {
       return res.status(404).json({ error: 'Recipe not found.' });
