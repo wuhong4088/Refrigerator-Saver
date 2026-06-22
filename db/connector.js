@@ -12,13 +12,12 @@ if (!uri) {
 
 const client = new MongoClient(uri);
 
-let db = null;
+const db = client.db();
 
 // Connect to database asynchronously so it doesn't block module imports on startup
 client
   .connect()
   .then(() => {
-    db = client.db();
     console.log('Successfully connected to MongoDB.');
   })
   .catch((error) => {
