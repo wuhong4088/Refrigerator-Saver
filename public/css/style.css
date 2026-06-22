@@ -76,7 +76,29 @@ body {
 }
 
 .app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 24px;
+}
+
+.btn-admin-logs {
+  background: none;
+  border: 2px solid var(--primary-forest);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-forest);
+  transition: var(--transition-smooth);
+}
+
+.btn-admin-logs:hover {
+  background-color: var(--light-green);
 }
 
 .app-title {

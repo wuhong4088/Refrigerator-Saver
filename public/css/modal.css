@@ -325,3 +325,145 @@
 .btn-submit:active {
   transform: translateY(0);
 }
+
+/* Admin Logs Modal specific styles */
+.log-modal-content {
+  max-width: 600px;
+}
+
+.logs-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.logs-control-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-clear-logs-action {
+  background: none;
+  border: none;
+  color: var(--danger-color);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: var(--transition-smooth);
+}
+
+.btn-clear-logs-action:hover {
+  opacity: 0.8;
+}
+
+.log-add-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.log-add-wrapper input {
+  flex-grow: 1;
+  padding: 10px 20px;
+  border: 3px solid var(--primary-forest);
+  border-radius: 30px;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.log-add-wrapper button {
+  background-color: var(--primary-forest);
+  color: var(--white);
+  border: 3px solid var(--primary-forest);
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.log-add-wrapper button:hover {
+  background-color: var(--primary-accent);
+}
+
+.logs-list {
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 4px;
+}
+
+.log-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white);
+  border: 2px solid var(--primary-forest);
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-size: 13px;
+  transition: var(--transition-smooth);
+}
+
+.log-info-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.log-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.log-badge-action {
+  background-color: var(--primary-forest);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+}
+
+.log-time-stamp {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.log-item-details {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.log-actions-flex {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit-log-row,
+.btn-delete-log-row {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--primary-forest);
+  transition: var(--transition-smooth);
+}
+
+.btn-edit-log-row:hover {
+  color: var(--primary-accent);
+}
+
+.btn-delete-log-row:hover {
+  color: var(--danger-color);
+}

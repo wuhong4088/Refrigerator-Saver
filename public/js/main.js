@@ -535,25 +535,39 @@ function showToast(message) {
   }, 3000);
 }
 
-// Logs panel logic
+// Logs modal logic
 let isLogsOpen = false;
 
 function setupLogsPanel() {
-  const btnToggleLogs = document.getElementById('btn-toggle-logs');
-  const logsContent = document.getElementById('logs-content');
+  const btnAdminLogs = document.getElementById('btn-admin-logs');
+  const logsModal = document.getElementById('logs-modal');
+  const btnLogsClose = document.getElementById('btn-logs-close');
   const btnAddCustomLog = document.getElementById('btn-add-custom-log');
   const logCustomInput = document.getElementById('log-custom-input');
   const btnClearAllLogs = document.getElementById('btn-clear-all-logs');
 
-  if (!btnToggleLogs || !logsContent) return;
+  if (!btnAdminLogs || !logsModal || !btnLogsClose) return;
 
-  btnToggleLogs.addEventListener('click', () => {
-    isLogsOpen = !isLogsOpen;
-    logsContent.style.display = isLogsOpen ? 'block' : 'none';
-    if (isLogsOpen) {
-      fetchAndRenderLogs();
+  btnAdminLogs.addEventListener('click', () => {
+    isLogsOpen = true;
+    logsModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    fetchAndRenderLogs();
+  });
+
+  btnLogsClose.addEventListener('click', closeLogsModal);
+
+  logsModal.addEventListener('click', (e) => {
+    if (e.target === logsModal) {
+      closeLogsModal();
     }
   });
+
+  function closeLogsModal() {
+    isLogsOpen = false;
+    logsModal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
 
   btnAddCustomLog.addEventListener('click', async () => {
     const val = logCustomInput.value.trim();

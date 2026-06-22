@@ -21,6 +21,13 @@
       <!-- Title Header -->
       <header class="app-header">
         <h1 class="app-title">REFRIGERATOR SAVER</h1>
+        <button
+          id="btn-admin-logs"
+          class="btn-admin-logs"
+          aria-label="System Logs"
+        >
+          ⚙️
+        </button>
       </header>
 
       <!-- Action Row (Search & New Recipe Button) -->
@@ -214,6 +221,51 @@
             </button>
           </div>
         </form>
+      </div>
+    </div>
+
+    <!-- Semi-transparent Logs Modal Box Overlay (Admin System Logs) -->
+    <div
+      id="logs-modal"
+      class="modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="logs-modal-title"
+      style="display: none"
+    >
+      <div class="modal-content log-modal-content">
+        <div class="modal-header">
+          <h2 id="logs-modal-title">SYSTEM AUDIT LOGS</h2>
+          <button
+            id="btn-logs-close"
+            class="btn-close-modal"
+            aria-label="Close logs"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="logs-body">
+          <div class="logs-control-row">
+            <button
+              type="button"
+              id="btn-clear-all-logs"
+              class="btn-clear-logs-action"
+            >
+              Clear Logs List
+            </button>
+          </div>
+          <div class="log-add-wrapper">
+            <input
+              type="text"
+              id="log-custom-input"
+              placeholder="Add custom log annotation..."
+            />
+            <button type="button" id="btn-add-custom-log">Add Log</button>
+          </div>
+          <ul id="logs-list" class="logs-list">
+            <!-- Populated dynamically -->
+          </ul>
+        </div>
       </div>
     </div>
 
