@@ -115,6 +115,7 @@ The design document is available in [DESIGN.md](file:///Users/hung/Desktop/git/R
 ## GenAI Disclosure
 
 Generative AI was used as an assistant during this project. AI support was primarily used to help write, structure, and format the project documentation, including the README and the Design Document, as well as to verify that the implementation complies with the assignment rubric.
+It was also used to help with debugging, especially later in the project after more code had been written.
 
 ---
 
