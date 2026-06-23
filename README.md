@@ -36,6 +36,7 @@ Refrigerator Saver is a full-stack recipe management web app that helps students
 ---
 
 ## Screenshot
+<img width="3426" height="1986" alt="CleanShot 2026-06-23 at 15 56 44@2x" src="https://github.com/user-attachments/assets/56f1ef48-41c8-4ad3-b328-54d2518df0b1" />
 
 ---
 
