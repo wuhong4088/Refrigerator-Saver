@@ -20,9 +20,7 @@
 
 /* Modal Content Card matching Frame 7 container */
 .modal-content {
-  background-color: var(
-    --light-green
-  ); /* Light peach/pink background matching Frame 7 */
+  background-color: lightpink; /* Light peach/pink background matching Frame 7 */
   border: 4px solid var(--primary-forest);
   border-radius: 36px;
   width: 100%;
@@ -54,9 +52,9 @@
 }
 
 .modal-header h2 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
-  color: var(--primary-forest);
+  color: red;
   text-transform: uppercase;
 }
 
@@ -69,12 +67,12 @@
   color: var(--primary-forest);
   cursor: pointer;
   padding: 4px;
-  font-weight: 800;
+  font-weight: 200;
   transition: var(--transition-smooth);
 }
 
 .btn-close-modal:hover {
-  color: var(--danger-color);
+  color: white;
 }
 
 /* Form layouts */
@@ -92,6 +90,13 @@
 
 .form-label {
   font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-forest);
+  text-transform: capitalize; /* Matches Figma capitalized labels */
+}
+
+.form-label-steps {
+  font-size: 20px;
   font-weight: 700;
   color: var(--primary-forest);
   text-transform: capitalize; /* Matches Figma capitalized labels */
@@ -105,19 +110,19 @@
   border-radius: 30px; /* Oval inputs matching Figma Frame 7 */
   font-family: var(--font-main);
   font-size: 15px;
-  font-weight: 600;
-  color: var(--primary-forest);
-  background-color: var(--white);
+  font-weight: 500;
+  color: red;
+  background-color: var(--background-fill-light-pink);
   transition: var(--transition-smooth);
 }
 
 .form-group input[type='text']:focus {
   outline: none;
-  background-color: #fafdfa;
+  /* background-color: #fafdfa; */
 }
 
 .form-group input[type='text']::placeholder {
-  color: rgba(230, 57, 70, 0.4);
+  color: red;
 }
 
 /* Ingredients tagging container */
@@ -128,9 +133,9 @@
 
 /* Pill add button */
 .btn-add-tag-action {
-  background-color: var(--primary-forest);
-  color: var(--white);
-  border: 3px solid var(--primary-forest);
+  background-color: var(--background-fill-light-pink);
+  color: red;
+  /* border: 3px solid var(--primary-forest); */
   width: 45px;
   height: 45px;
   min-width: 45px;
@@ -142,10 +147,13 @@
   align-items: center;
   justify-content: center;
   transition: var(--transition-smooth);
+  border: none;
+  appearance: none;
 }
 
 .btn-add-tag-action:hover {
   background-color: var(--primary-accent);
+  color: white;
 }
 
 /* Horizontal display for modal tag chips */
@@ -213,9 +221,9 @@
 }
 
 .btn-delete-step-row {
-  background-color: #feebea;
-  color: var(--danger-color);
-  border: 3px solid var(--primary-forest);
+  background-color: var(--background-fill-light-pink);
+  color: red;
+  /* border: 3px solid var(--primary-forest); */
   width: 42px;
   height: 42px;
   min-width: 42px;
@@ -227,11 +235,17 @@
   align-items: center;
   justify-content: center;
   transition: var(--transition-smooth);
+  border: none;
+  appearance: none;
+}
+
+.btn-delete-step-row:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .btn-delete-step-row:hover {
-  background-color: var(--danger-color);
-  color: var(--white);
+  background-color: red;
+  color: white;
 }
 
 .add-step-action-wrapper {
@@ -240,9 +254,9 @@
 
 /* + add step pill button */
 .btn-add-step {
-  background-color: var(--white);
-  color: var(--primary-forest);
-  border: 3px dashed var(--primary-forest);
+  background-color: var(--background-fill-light-pink);
+  color: red;
+  /* border: 3px solid var(--primary-forest); */
   padding: 8px 16px;
   font-family: var(--font-main);
   font-size: 13px;
@@ -251,11 +265,17 @@
   cursor: pointer;
   text-transform: lowercase; /* Matches Figma '+ add step' */
   transition: var(--transition-smooth);
+  border: none;
+  appearance: none;
+}
+
+.btn-add-step:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .btn-add-step:hover {
-  background-color: var(--light-green);
-  border-style: solid;
+  background-color: red;
+  color: white;
 }
 
 /* Validation Feedback Error Label */
@@ -287,8 +307,8 @@
 }
 
 .btn-cancel {
-  background-color: var(--white);
-  border: 3.5px solid var(--primary-forest);
+  background-color: var(--background-fill-light-pink);
+  /* border: 3.5px solid var(--primary-forest); */
   color: var(--primary-forest);
   padding: 12px 24px;
   font-family: var(--font-main);
@@ -297,33 +317,42 @@
   border-radius: 30px;
   cursor: pointer;
   transition: var(--transition-smooth);
+  border: none;
+  appearance: none;
+}
+
+.btn-cancel:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .btn-cancel:hover {
-  background-color: var(--bg-light);
+  background-color: red;
+  color: white;
 }
 
 .btn-submit {
-  background-color: var(--grass-green);
+  background-color: red;
   color: var(--white);
-  border: 3.5px solid var(--primary-forest);
+  /* border: 3.5px solid var(--primary-forest); */
   padding: 12px 24px;
   font-family: var(--font-main);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   border-radius: 30px;
   cursor: pointer;
   text-transform: lowercase; /* Matches Figma '+ save recipe' */
   transition: var(--transition-smooth);
-  box-shadow: 0 4px 0 var(--primary-forest);
+  border: none;
+  appearance: none;
+}
+
+.btn-submit:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .btn-submit:hover {
-  background-color: var(--grass-hover);
-  transform: translateY(-1px);
-}
-.btn-submit:active {
-  transform: translateY(0);
+  background-color: white;
+  color: red;
 }
 
 /* Admin Logs Modal specific styles */

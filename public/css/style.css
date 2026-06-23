@@ -2,7 +2,7 @@
 :root {
   --primary-forest: red;
   /* Vibrant Red for borders and headers */
-  --primary-accent: #c92a2a;
+  --primary-accent: red;
   /* Darker Red accents */
   --grass-green: red;
   /* Bright Red for primary buttons */
@@ -12,13 +12,14 @@
   /* Light Peach/Pink for Card Backgrounds */
   --text-dark: red;
   /* Theme Red for main text and titles */
-  --text-muted: #b05b5f;
+  --text-muted: red;
   /* Muted Red for secondary text */
   --bg-light: lightpink;
   /* Soft Peach/Pink page background */
   --white: #ffffff;
-  --danger-color: #d32f2f;
+  --danger-color: red;
   /* Red for deleting */
+  --background-fill-light-pink: rgb(255, 220, 225);
 
   --font-main:
     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -31,19 +32,6 @@
   margin: 0;
   padding: 0;
 }
-
-/* body {
-  background-color: lightpink;
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'24'%20height%3D'24'%3E%3Ccircle%20cx%3D'1'%20cy%3D'1'%20r%3D'1'%20fill%3D'%23f37f94'%2F%3E%3C%2Fsvg%3E");
-  background-size: 24px 24px;
-  min-height: 100vh;
-  overflow-x: hidden;
-  animation: fadeIn 0.5s ease-in-out; 
-  font-family: Inter;
-  margin-left: 50px;
-  margin-right: 25px;
-} */
-
 
 body {
   font-family: var(--font-main);
@@ -82,11 +70,11 @@ body {
 .app-frame {
   max-width: 1100px;
   margin: 0 auto;
-  background-color: #ffffff;
-  border: 4px solid var(--primary-forest);
+  /* background-color: #ffffff;
+  border: 4px solid var(--primary-forest); */
   border-radius: 36px;
   padding: 48px;
-  box-shadow: 0 16px 40px rgba(27, 59, 34, 0.06);
+  /* box-shadow: 0 16px 40px rgba(27, 59, 34, 0.06); */
 }
 
 .app-header {
@@ -97,8 +85,8 @@ body {
 }
 
 .btn-admin-logs {
-  background: none;
-  border: 2px solid var(--primary-forest);
+  background: var(--background-fill-light-pink);
+  /* border: 2px solid var(--primary-forest); */
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -109,14 +97,20 @@ body {
   justify-content: center;
   color: var(--primary-forest);
   transition: var(--transition-smooth);
+  border: none;
+  appearance: none;
+}
+
+.btn-admin-logs:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .btn-admin-logs:hover {
-  background-color: var(--light-green);
+  background-color: red
 }
 
 .app-title {
-  font-size: 32px;
+  font-size: 3.5rem;
   font-weight: 800;
   letter-spacing: -0.5px;
   color: var(--primary-forest);
@@ -154,13 +148,13 @@ body {
 .search-wrapper input {
   width: 100%;
   padding: 14px 20px 14px 50px;
-  background-color: #ffffff;
+  background-color: var(--background-fill-light-pink);
   border: 3.5px solid var(--primary-forest);
   border-radius: 30px;
   color: var(--text-dark);
   font-family: var(--font-main);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: lowercase;
   /* Matches Figma placeholder 'search all recipes' */
   transition: var(--transition-smooth);
@@ -168,19 +162,20 @@ body {
 
 .search-wrapper input:focus {
   outline: none;
-  background-color: #fafdfa;
+  background-color: var(--background-fill-light-pink);
   box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
 }
 
 .search-wrapper input::placeholder {
-  color: rgba(27, 59, 34, 0.4);
+  color: red;
+  font-weight: 400;
 }
 
 /* + New Recipe Action Pill Button */
 .btn-new-recipe {
-  background-color: var(--light-green);
-  color: var(--primary-forest);
-  border: 3.5px solid var(--primary-forest);
+  background-color: var(--background-fill-light-pink);
+  color: red;
+  border: 3.5px solid red;
   border-radius: 30px;
   padding: 14px 28px;
   font-family: var(--font-main);
@@ -191,11 +186,17 @@ body {
   /* Matches Figma '+ new recipe' */
   transition: var(--transition-smooth);
   white-space: nowrap;
+  border: none;
+  appearance: none;
+}
+
+.btn-new-recipe:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .btn-new-recipe:hover {
-  background-color: var(--grass-green);
-  color: #ffffff;
+  background-color: red;
+  color: white;
   transform: translateY(-1px);
 }
 
@@ -212,13 +213,19 @@ body {
   gap: 12px;
   margin-bottom: 32px;
   padding-bottom: 20px;
-  border-bottom: 2.5px solid #eef2ee;
+  border-bottom: 2.5px solid red;
   overflow-x: auto;
   width: 100%;
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE/Edge */
+}
+
+.filter-section::-webkit-scrollbar {
+  display: none; /* hides scroll bar on safari/chrome*/
 }
 
 .filter-label {
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--primary-accent);
   white-space: nowrap;
@@ -232,8 +239,8 @@ body {
 
 /* Filter Chips styles */
 .filter-chip {
-  background-color: #ffffff;
-  border: 2px solid var(--primary-forest);
+  background-color: var(--background-fill-light-pink);
+  /* border: 2px solid var(--primary-forest); */
   color: var(--primary-forest);
   font-family: var(--font-main);
   font-size: 13px;
@@ -243,10 +250,17 @@ body {
   cursor: pointer;
   white-space: nowrap;
   transition: var(--transition-smooth);
+  border: none;
+  appearance: none;
+}
+
+.filter-chip:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .filter-chip:hover {
-  background-color: var(--light-green);
+  background-color: red;
+  color: white; 
 }
 
 .filter-chip.active {
@@ -285,7 +299,7 @@ body {
    ========================================================================== */
 .recipe-card {
   position: relative;
-  background-color: #fffcfc;
+  background-color: var(--background-fill-light-pink);
   border: 3.5px solid var(--primary-forest);
   border-radius: 24px;
   padding: 24px;
@@ -295,11 +309,11 @@ body {
   flex-direction: column;
   justify-content: space-between;
   transition: var(--transition-smooth);
+  cursor: pointer;
 }
 
 .recipe-card:hover {
-  transform: translateY(-2px);
-  background-color: #ffffff;
+  transform: translateY(-3px);
   box-shadow: 0 6px 18px rgba(27, 59, 34, 0.04);
 }
 
@@ -311,7 +325,7 @@ body {
 }
 
 .btn-three-dots {
-  background: #ffffff;
+  background: var(--background-fill-light-pink);
   border: 2px solid var(--primary-forest);
   width: 30px;
   height: 30px;
@@ -321,13 +335,14 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--primary-forest);
-  font-size: 14px;
+  font-size: 20px;
   font-weight: bold;
   transition: var(--transition-smooth);
 }
 
 .btn-three-dots:hover {
-  background-color: var(--light-green);
+  background-color: red;
+  color: white;
 }
 
 /* Dropdown Menu Box */
@@ -427,13 +442,13 @@ body {
 }
 
 .ingredient-badge {
-  background-color: var(--light-green);
-  color: var(--primary-accent);
+  background-color: red;
+  color: white;
   font-size: 11px;
   font-weight: 600;
   padding: 3px 8px;
   border-radius: 8px;
-  border: 1px solid rgba(27, 59, 34, 0.1);
+  border: 1px solid red;
   white-space: nowrap;
 }
 
@@ -465,4 +480,47 @@ body {
 .toast-notification.visible {
   transform: translateY(0);
   opacity: 1;
+}
+
+/*==========================================================================
+   RECIPE DETAIL MODAL STYLING
+   ==========================================================================*/
+
+/* Wrapper for all content inside the detail modal */
+.detail-body {
+  padding: 8px 0;
+}
+
+/* Cooking time line shown below the title */
+.detail-cooking-time {
+  font-size: 14px;
+  font-weight: 600;
+  color: red;
+  margin-bottom: 20px;
+}
+
+/* Wrapper for each section (ingredients, steps) inside the modal */
+.detail-section {
+  margin-bottom: 24px;
+}
+
+/* Section headings like "Ingredients" and "Steps" */
+.detail-section h3 {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: red;
+  margin-bottom: 10px;
+}
+
+/* The ordered list wrapping all steps */
+.detail-steps-list {
+  padding-left: 20px; /* indents the list so the numbers aren't flush against the edge */
+}
+
+/* Each individual step list item */
+.detail-step-item {
+  font-size: 16px;
+  margin-bottom: 8px;
+  line-height: 1.5; /* adds breathing room between lines of a longer step */
 }

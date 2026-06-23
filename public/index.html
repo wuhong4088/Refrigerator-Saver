@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
     <!-- Modular Stylesheets -->
@@ -59,7 +59,7 @@
 
       <!-- Horizontal Ingredients Filters Row -->
       <section class="filter-section">
-        <div class="filter-label">Filter by Ingredient:</div>
+        <div class="filter-label">FILTER:</div>
         <div id="filter-chips-container" class="filter-chips-flex">
           <!-- Populated dynamically by JS -->
         </div>
@@ -128,7 +128,7 @@
               <input
                 type="text"
                 id="form-recipe-time"
-                placeholder="00:00 (e.g. 25 mins)"
+                placeholder="(e.g. 25 mins)..."
                 required
               />
             </div>
@@ -167,7 +167,7 @@
 
           <!-- Dynamic Steps Instructions -->
           <div class="form-group">
-            <label class="form-label">Steps</label>
+            <label class="form-label-steps">Cooking Steps</label>
             <div id="form-steps-container" class="steps-list-stack">
               <!-- Dynamically populated steps rows -->
             </div>
@@ -238,6 +238,33 @@
         </div>
       </div>
     </div>
+
+    <!-- recipe details modal view -->
+     <div
+     id="detail-modal"
+     class="modal-backdrop"
+     role="dialog"
+     aria-moda="true"
+     style="display: none"
+     >
+     <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="detail-modal-title">Recipe</h2>
+        <button id="btn-detail-close" class="btn-close-modal" aria-label="Close">&times;</button>
+        </div>
+        <div class="detail-body">
+          <p class="detial-cooking-time" id="detail-cooking-time"></p>
+          <div class="detail-section">
+            <h3>Ingredients</h3>
+            <div id="detail-ingredients" class="modal-chips-flex"></div>
+            </div>
+            <div class="detail-section">
+              <h3>Steps</h3>
+              <ol id="detail-steps" class="detail-steps-list"></ol>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!-- JS Logic Core -->
     <script src="js/main.js"></script>

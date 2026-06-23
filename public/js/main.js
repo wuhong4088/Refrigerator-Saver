@@ -86,6 +86,12 @@ function setupEventListeners() {
       }
     });
   });
+
+  // === for detail modal view ===
+  document.getElementById('btn-detail-close').addEventListener('click', closeDetailModal);
+  document.getElementById('detail-modal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('detail-modal')) closeDetailModal();
+  });
 }
 
 // Fetch data from backend
@@ -261,6 +267,10 @@ function renderRecipes() {
       e.stopPropagation();
       dropdown.classList.remove('active');
       handleDeleteRecipe(recipe._id, recipe.name);
+    });
+
+    card.querySelector('.card-body').addEventListener('click', () => {
+      openDetailModal(recipe);
     });
 
     recipeGrid.appendChild(card);
@@ -702,4 +712,24 @@ async function logUserAction(action, details) {
   } catch (err) {
     console.error('Logging action failed:', err);
   }
+}
+
+// === recipe details js ===
+function openDetailModal(recipe) {
+  document.getElementById('detail-modal-title').textContent = recipe.name;
+  document.getElementById('detail-cooking-time').textContent = `⏱ ${recipe.cookingTime}`;
+
+  const ingredientsEl = document.getElementById('detail-ingredients');
+  ingredientsEl.innerHTML = (recipe.ingredients || []).map(ing => `<span class ="ingredient-badge">${escapeHTML(ing)}</span>`).join('');
+
+  const stepsEl = document.getElementById('detail-steps');
+  stepsEl.innerHTML = (recipe.steps || []).map(step => `<li class="detail-step-item">${escapeHTML(step)}</li>`).join('');
+
+  document.getElementById('detail-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetailModal() {
+  document.getElementById('detail-modal').style.display = 'none';
+  document.body.style.overflow = '';
 }
