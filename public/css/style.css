@@ -1,27 +1,27 @@
 /* Theme Custom Properties and Design Tokens */
 :root {
-  --primary-forest: #e63946;
+  --primary-forest: red;
   /* Vibrant Red for borders and headers */
   --primary-accent: #c92a2a;
   /* Darker Red accents */
-  --grass-green: #ff4d4d;
+  --grass-green: red;
   /* Bright Red for primary buttons */
   --grass-hover: #e60000;
   /* Hover State Red */
   --light-green: #ffe8e6;
   /* Light Peach/Pink for Card Backgrounds */
-  --text-dark: #e63946;
+  --text-dark: red;
   /* Theme Red for main text and titles */
   --text-muted: #b05b5f;
   /* Muted Red for secondary text */
-  --bg-light: #ffe8e6;
+  --bg-light: lightpink;
   /* Soft Peach/Pink page background */
   --white: #ffffff;
   --danger-color: #d32f2f;
   /* Red for deleting */
 
   --font-main:
-    'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --transition-smooth: all 0.2s ease-in-out;
 }
 
@@ -32,9 +32,23 @@
   padding: 0;
 }
 
+/* body {
+  background-color: lightpink;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'24'%20height%3D'24'%3E%3Ccircle%20cx%3D'1'%20cy%3D'1'%20r%3D'1'%20fill%3D'%23f37f94'%2F%3E%3C%2Fsvg%3E");
+  background-size: 24px 24px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  animation: fadeIn 0.5s ease-in-out; 
+  font-family: Inter;
+  margin-left: 50px;
+  margin-right: 25px;
+} */
+
+
 body {
   font-family: var(--font-main);
   background-color: var(--bg-light);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'24'%20height%3D'24'%3E%3Ccircle%20cx%3D'1'%20cy%3D'1'%20r%3D'1'%20fill%3D'%23f37f94'%2F%3E%3C%2Fsvg%3E");
   color: var(--text-dark);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
