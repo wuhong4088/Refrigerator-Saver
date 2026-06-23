@@ -53,13 +53,13 @@ The project features a responsive single-page Client-Side Rendered (CSR) dashboa
 
 ### Main Dashboard Page (index.html)
 
-The dashboard uses a clean single-column structure designed for ease of use and responsive scaling.
+The dashboard uses a clean single-column structure designed for ease of use and responsive scaling. It features a gear button in the header that opens the Admin System Logs modal.
 
 #### Wireframe Diagram:
 
 ```
 +-------------------------------------------------------------+
-|                     REFRIGERATOR SAVER                      |
+|                     REFRIGERATOR SAVER                [ ⚙️ ] |
 +-------------------------------------------------------------+
 |                                                             |
 |  +----------------------------+   +----------------------+  |
@@ -111,6 +111,33 @@ The modal covers the dashboard with a blurred backdrop overlay to focus attentio
 |  |                                                       |  |
 |  | ----------------------------------------------------- |  |
 |  |                                [ Cancel ] [ + Save ]  |  |
+|  +-------------------------------------------------------+  |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+---
+
+### System Audit Logs Modal Overlay (logs-modal)
+
+This modal is displayed when the administrator clicks the gear (⚙️) icon. It facilitates full CRUD operations on the system logs collection.
+
+#### Wireframe Diagram:
+
+```
++-------------------------------------------------------------+
+|                                                             |
+|  +-------------------------------------------------------+  |
+|  | SYSTEM AUDIT LOGS                                  X  |  |
+|  +-------------------------------------------------------+  |
+|  |                                                       |  |
+|  | [ Clear Logs List ]                                   |  |
+|  |                                                       |  |
+|  | [ Add custom log annotation...               ] [ Add ]|  |
+|  |                                                       |  |
+|  | * [RECIPE_CREATE] [12:04 PM] Created beef curry  [✏️][X]|  |
+|  | * [USER_NOTE]     [12:05 PM] Tested custom note  [✏️][X]|  |
+|  |                                                       |  |
 |  +-------------------------------------------------------+  |
 |                                                             |
 +-------------------------------------------------------------+

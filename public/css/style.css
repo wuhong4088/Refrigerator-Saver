@@ -106,7 +106,7 @@ body {
 }
 
 .btn-admin-logs:hover {
-  background-color: red
+  background-color: red;
 }
 
 .app-title {
@@ -216,8 +216,8 @@ body {
   border-bottom: 2.5px solid red;
   overflow-x: auto;
   width: 100%;
-  scrollbar-width: none;           /* Firefox */
-  -ms-overflow-style: none;        /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
 .filter-section::-webkit-scrollbar {
@@ -260,7 +260,7 @@ body {
 
 .filter-chip:hover {
   background-color: red;
-  color: white; 
+  color: white;
 }
 
 .filter-chip.active {

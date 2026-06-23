@@ -88,9 +88,12 @@ function setupEventListeners() {
   });
 
   // === for detail modal view ===
-  document.getElementById('btn-detail-close').addEventListener('click', closeDetailModal);
+  document
+    .getElementById('btn-detail-close')
+    .addEventListener('click', closeDetailModal);
   document.getElementById('detail-modal').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('detail-modal')) closeDetailModal();
+    if (e.target === document.getElementById('detail-modal'))
+      closeDetailModal();
   });
 }
 
@@ -717,13 +720,18 @@ async function logUserAction(action, details) {
 // === recipe details js ===
 function openDetailModal(recipe) {
   document.getElementById('detail-modal-title').textContent = recipe.name;
-  document.getElementById('detail-cooking-time').textContent = `⏱ ${recipe.cookingTime}`;
+  document.getElementById('detail-cooking-time').textContent =
+    `⏱ ${recipe.cookingTime}`;
 
   const ingredientsEl = document.getElementById('detail-ingredients');
-  ingredientsEl.innerHTML = (recipe.ingredients || []).map(ing => `<span class ="ingredient-badge">${escapeHTML(ing)}</span>`).join('');
+  ingredientsEl.innerHTML = (recipe.ingredients || [])
+    .map((ing) => `<span class ="ingredient-badge">${escapeHTML(ing)}</span>`)
+    .join('');
 
   const stepsEl = document.getElementById('detail-steps');
-  stepsEl.innerHTML = (recipe.steps || []).map(step => `<li class="detail-step-item">${escapeHTML(step)}</li>`).join('');
+  stepsEl.innerHTML = (recipe.steps || [])
+    .map((step) => `<li class="detail-step-item">${escapeHTML(step)}</li>`)
+    .join('');
 
   document.getElementById('detail-modal').style.display = 'flex';
   document.body.style.overflow = 'hidden';

@@ -240,31 +240,37 @@
     </div>
 
     <!-- recipe details modal view -->
-     <div
-     id="detail-modal"
-     class="modal-backdrop"
-     role="dialog"
-     aria-moda="true"
-     style="display: none"
-     >
-     <div class="modal-content">
-      <div class="modal-header">
-        <h2 id="detail-modal-title">Recipe</h2>
-        <button id="btn-detail-close" class="btn-close-modal" aria-label="Close">&times;</button>
+    <div
+      id="detail-modal"
+      class="modal-backdrop"
+      role="dialog"
+      aria-moda="true"
+      style="display: none"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="detail-modal-title">Recipe</h2>
+          <button
+            id="btn-detail-close"
+            class="btn-close-modal"
+            aria-label="Close"
+          >
+            &times;
+          </button>
         </div>
         <div class="detail-body">
           <p class="detial-cooking-time" id="detail-cooking-time"></p>
           <div class="detail-section">
             <h3>Ingredients</h3>
             <div id="detail-ingredients" class="modal-chips-flex"></div>
-            </div>
-            <div class="detail-section">
-              <h3>Steps</h3>
-              <ol id="detail-steps" class="detail-steps-list"></ol>
-            </div>
+          </div>
+          <div class="detail-section">
+            <h3>Steps</h3>
+            <ol id="detail-steps" class="detail-steps-list"></ol>
           </div>
         </div>
       </div>
+    </div>
 
     <!-- JS Logic Core -->
     <script src="js/main.js"></script>
