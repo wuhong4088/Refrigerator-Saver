@@ -2,8 +2,10 @@
 
 An interactive recipe management dashboard designed to reduce household food waste by matching available ingredients to delicious meals.
 
-**Author**: Wu Hung Hsiao & Logan  
+**Author**: Wu Hung Hsiao & Logan Sanderson 
+
 **Class Link**: [CS 5610 Web Development](https://johnguerra.co/classes/webDevelopment_online_summer_2026/)  
+
 **Public Page (Deployed URL)**: [Refrigerator Saver](https://refrigerator-saver.onrender.com)
 
 **Slides**: [Google Slides](https://docs.google.com/presentation/d/1_FKiYLQj7_RRLO2eoLODkuENiPL-LqpfWDiTbtTR4pk/edit?usp=sharing)
@@ -34,7 +36,7 @@ Refrigerator Saver is a full-stack recipe management web app that helps students
 
 ## Work Distribution (Independent)
 
-- **@Logan**: Search & filter — keyword search bar + ingredient chip filtering, fetches matching recipes from MongoDB without page refresh. Includes all associated frontend and backend routes.
+- **@Logan Sanderson**: Search & filter — keyword search bar + ingredient chip filtering, fetches matching recipes from MongoDB without page refresh. Includes all associated frontend and backend routes.
 - **@Wu Hung Hsiao**: Recipe management — three-dot menu (edit/delete) on each card + the create/edit recipe form that writes to MongoDB. Includes all associated frontend and backend routes.
 
 ---
