@@ -4,8 +4,8 @@ An interactive recipe management dashboard designed to reduce household food was
 
 **Author**: Wu Hung Hsiao & Logan  
 **Class Link**: [CS 5610 Web Development](https://johnguerra.co/classes/webDevelopment_online_summer_2026/)  
-**Public Page (Deployed URL)**: [Refrigerator Saver](https://refrigerator-saver.onrender.com) 
-**Slides**: [Google Slides](https://docs.google.com/presentation/d/1_FKiYLQj7_RRLO2eoLODkuENiPL-LqpfWDiTbtTR4pk/edit?usp=sharing) 
+**Public Page (Deployed URL)**: [Refrigerator Saver](https://refrigerator-saver.onrender.com) \n
+**Slides**: [Google Slides](https://docs.google.com/presentation/d/1_FKiYLQj7_RRLO2eoLODkuENiPL-LqpfWDiTbtTR4pk/edit?usp=sharing) \n
 **Video Demo**: [Video Demo](https://drive.google.com/file/d/1kJLN3X1AbCVYupplNvE6_0rAbp2qIWUW/view) 
 
 ---
