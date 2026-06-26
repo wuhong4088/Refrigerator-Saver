@@ -6,6 +6,7 @@ const router = Router();
 
 // GET /api/logs - Retrieve all system logs (sorted by timestamp descending)
 router.get('/', async (req, res) => {
+  // Suggest
   if (!db) {
     return res
       .status(500)
